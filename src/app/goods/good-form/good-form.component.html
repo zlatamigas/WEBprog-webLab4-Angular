@@ -1,0 +1,63 @@
+<div class="container">
+<div class="row">
+  <div class="col-sm-11">
+  <h1 class="display-4" [hidden]="!submitted">Созданный товар</h1>
+  <h1 class="display-4" [hidden]="submitted">Создать товар</h1>
+  </div>
+  <div  class="col-sm-1">
+  <button type="button" class="btn btn-primary" [routerLink]="['']">&#8592;</button>
+  </div>
+</div>
+</div>
+
+<div class="container" [hidden]="!submitted">
+  <div class="row">
+    <div class="col-sm-3">Наименование: </div>
+    <div class="col-sm-9">{{ model.name }}</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">Цена (BYN): </div>
+    <div class="col-sm-9">{{ model.price }}</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">Описание: </div>
+    <div class="col-sm-9"><p style="word-wrap: break-word;">{{ model.description }}</p></div>
+  </div>
+  <br>
+  <button type="button" class="btn btn-primary"  (click)="submitted=false">Редактировать</button>
+  <button type="button" class="btn btn-success" style="margin-left: 10px" (click)="onAddGood()">Сохранить</button>
+</div>
+
+<div class="container" [hidden]="submitted">
+<form #goodForm="ngForm" (ngSubmit)="onSubmit()">
+<div class="form-group">
+  <label for="name">Наименование товара <span style="color:red">*</span></label>
+  <input type="text" class="form-control" id="name" name="name"
+         required="true" minlength="1" maxlength="20" placeholder="Молоко &#171;Здравушка&#187;"
+         [(ngModel)]="model.name" #name="ngModel"/>
+  <div [hidden]="name.valid || name.pristine"
+       class="alert alert-danger">
+    Введите название
+  </div>
+</div>
+<div class="form-group">
+  <label for="price">Цена товара (BYN) <span style="color:red">*</span></label>
+  <input type="number" class="form-control" id="price" name="price"
+         required="true" min="0.01" pattern="\d{1,}([\.,]\d{1,2})?" placeholder="12,99"
+         [(ngModel)]="model.price" #price="ngModel"/>
+  <div [hidden]="price.valid || price.pristine"
+       class="alert alert-danger">
+    Введите положительное число (Прим: 12,99)
+  </div>
+</div>
+<div class="form-group">
+  <label for="description">Описание товара</label>
+  <textarea class="form-control" id="description" name="description"
+         [(ngModel)]="model.description" #description="ngModel" placeholder="Информация о производителе, состав и т.д.">
+  </textarea>
+</div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-success" [disabled]="!goodForm.form.valid">Добавить</button>
+  </div>
+</form>
+</div>

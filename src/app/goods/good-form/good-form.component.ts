@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Good} from "../services/good";
-import {Goods} from "../services/mock-good-list";
 import {GoodServiceService} from "../services/good-service.service";
 import {ActivatedRoute} from "@angular/router";
 
@@ -15,7 +14,7 @@ export class GoodFormComponent implements OnInit {
   submitted = false;
 
 
-  constructor(private activatedRoute:ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute,
               private goodsService: GoodServiceService) {
   }
 
@@ -23,9 +22,11 @@ export class GoodFormComponent implements OnInit {
 
   }
 
-  onSubmit() { this.submitted = true; }
+  onSubmit() {
+    this.submitted = true;
+  }
 
-  onAddGood(){
+  onAddGood() {
     this.goodsService.addGood(this.model);
     this.model = new Good('', 0, '')
     this.submitted = false;

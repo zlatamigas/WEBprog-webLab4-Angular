@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Goods } from "../services/mock-good-list";
-import { Good } from "../services/good";
+import {Component, OnInit} from '@angular/core';
+import {Good} from "../services/good";
+import {ActivatedRoute} from "@angular/router";
+import {GoodServiceService} from "../services/good-service.service";
 
 @Component({
   selector: 'app-good-list',
@@ -11,10 +12,12 @@ export class GoodListComponent implements OnInit {
 
   goods: Good[] = [];
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute,
+              private goodsService: GoodServiceService) {
+  }
 
   ngOnInit(): void {
-    this.goods = Goods;
+    this.goods = this.goodsService.getGoods();
   }
 
 }
